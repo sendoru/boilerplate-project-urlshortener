@@ -56,6 +56,11 @@ app.post('/api/shorturl', async function(req, res) {
     return res.json({"error":"invalid URL"});
   }
 
+  // remove end / if exists
+  if (url.endsWith('/')) {
+    url = url.slice(0, -1);
+  } 
+
   // check if website wtih dns of hostname is connectable
   if (!(await isConnectable(url))) {
     return res.json({"error":"invalid URL"});
