@@ -53,7 +53,7 @@ app.post('/api/shorturl', async function(req, res) {
 
   // check if url format is valid
   if (!url.startsWith('http://') && !url.startsWith('https://')) {
-    return res.json({"error":"invalid URL"});
+    return res.json({"error":"invalid url"});
   }
 
   // remove end / if exists
@@ -62,9 +62,9 @@ app.post('/api/shorturl', async function(req, res) {
   } 
 
   // check if website wtih dns of hostname is connectable
-  if (!(await isConnectable(url))) {
-    return res.json({"error":"invalid URL"});
-  }
+  // if (!(await isConnectable(url))) {
+  //   return res.json({"error":"invalid url"});
+  // }
 
   // if given url is already in map, return its short url
   if (map[url] != undefined) {
@@ -72,7 +72,7 @@ app.post('/api/shorturl', async function(req, res) {
   }
 
   // if not, create short url and return it
-  var short_url = Object.keys(map).length;
+  var short_url = Object.keys(map).length + 1;
   map[url] = short_url;
   return res.json({"original_url":url, "short_url":short_url});
 });
